@@ -3,6 +3,7 @@ import numpy as np
 from motionless import CenterMap
 import skimage.io
 from skimage import color
+from skimage.color import rgb2gray
 from PIL import Image
 import urllib.request
 import io
@@ -18,7 +19,8 @@ URL += "&style=feature:all|element:labels|visibility:off"
 with urllib.request.urlopen(URL) as url:
     f = io.BytesIO(url.read())
 
-img = np.array(Image.open(f))
+img = np.array(Image.open(f).convert("RGB"))
+img = rgb2gray(img)
 skimage.io.imshow(img)
 skimage.io.show()
 
